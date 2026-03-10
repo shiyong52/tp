@@ -31,6 +31,8 @@ public class ModuleList {
 
     private static final Map<String, Integer> MODULE_MC_MAP = new HashMap<>();
 
+    private final List<Module> completedModules;
+
     static {
         // engineering core
         MODULE_MC_MAP.put("MA1511", 2);
@@ -67,6 +69,10 @@ public class ModuleList {
         MODULE_MC_MAP.put("CDE4301", 8);
     }
 
+    public ModuleList(List<Module> completedModules) {
+        this.completedModules = completedModules;
+    }
+
     /**
      * Returns the MC value for a given module code.
      *
@@ -79,12 +85,6 @@ public class ModuleList {
 
     public static int getTotalGraduationMcs() {
         return TOTAL_GRADUATION_MCS;
-    }
-
-    private final List<Module> completedModules;
-
-    public ModuleList(List<Module> completedModules) {
-        this.completedModules = completedModules;
     }
 
     /**
@@ -119,7 +119,6 @@ public class ModuleList {
         newModule.markCompleted();
         completedModules.add(newModule);
     }
-
 
     public boolean removeModule(String moduleCode) {
         for (int i = 0; i < completedModules.size(); i++) {
@@ -213,6 +212,4 @@ public class ModuleList {
         }
         return incompleteModulesList.toString().trim();
     }
-
-
 }

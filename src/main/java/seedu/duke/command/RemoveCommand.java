@@ -25,13 +25,13 @@ public class RemoveCommand extends Command {
         boolean removed = modules.removeModule(moduleCode);
         try {
             Storage.save(modules.completedModules);
-            logger.log(Level.INFO, "Storage updated after removing module: {0}", moduleCode);
+            logger.log(Level.FINE, "Storage updated after removing module: {0}", moduleCode);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to save after removing module: {0}", moduleCode);
             throw new RuntimeException(e);
         }
         if (removed) {
-            logger.log(Level.INFO, "Module removed successfully: {0}", moduleCode);
+            logger.log(Level.FINE, "Module removed successfully: {0}", moduleCode);
             return moduleCode + " has been removed";
         } else {
             logger.log(Level.WARNING, "Attempted to remove non-existing module: {0}", moduleCode);

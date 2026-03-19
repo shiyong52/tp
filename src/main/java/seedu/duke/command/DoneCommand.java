@@ -28,10 +28,10 @@ public class DoneCommand extends Command {
         Module newModule = new Module(moduleCode, modularCredits);
         try {
             modules.addModule(newModule);
-            logger.log(Level.INFO, "Module added: {0} (MC={1})", new Object[]{moduleCode, modularCredits});
+            logger.log(Level.FINE, "Module added: {0} (MC={1})", new Object[]{moduleCode, modularCredits});
 
             Storage.save(modules.completedModules);
-            logger.log(Level.INFO, "Storage updated after adding module: {0}", moduleCode);
+            logger.log(Level.FINE, "Storage updated after adding module: {0}", moduleCode);
 
             return moduleCode + " has been added";
 

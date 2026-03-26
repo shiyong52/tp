@@ -12,7 +12,7 @@ public class storageTest {
 
     @Test
     public void load_emptyFile_returnsEmptyList() throws IOException {
-        Storage storage = new Storage("data/test.txt"); // ✅ test file
+        Storage storage = new Storage("data/test.txt");
 
         // ensure empty file
         Storage.save(List.of());

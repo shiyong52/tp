@@ -8,6 +8,18 @@
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### Storage component
+API: Storage.java
+
+{insert UML diagram here}
+
+The storage component,
+
+can save current completed mods as well as planned mods in a text file
+
+It can also create more then one list for different users
+
+different user can also have different iteration of their plan
 
 ## Product scope
 ### Target user profile

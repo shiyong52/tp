@@ -1,8 +1,6 @@
 package seedu.duke.module;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -14,67 +12,20 @@ public class ModuleList {
 
     private static final Logger logger = Logger.getLogger(ModuleList.class.getName());
 
-    private static final int TOTAL_GRADUATION_MCS = 80;
+    private static final int TOTAL_GRADUATION_MCS = 160;
 
-    private static final List<String> REQUIRED_MODULES = Arrays.asList(
-            // engineering core
-            "MA1511", "MA1512", "MA1508E", "EG2401A",
+    private final Map<String, Module> allModules;
 
-            // CEG discipline core
-            "CG1111A", "CG2111A", "CS1231", "CG2023", "CG2027", "CG2028", "CG2271",
-            "CG3201", "CG3207", "CS2040C", "CS2107", "CS2113", "EE2026", "EE4204"
-    );
-
-    // OR groups: completing any one module in a group fulfils the requirement
-    private static final List<List<String>> OR_GROUPS = Arrays.asList(
-            // internship: CP3880 OR EG3611A
-            Arrays.asList("CP3880", "EG3611A"),
-            // capstone: CG4002 OR CG4001 OR CP4106 OR EE4002D OR EE4002R OR CDE4301
-            Arrays.asList("CG4002", "CG4001", "CP4106", "EE4002D", "EE4002R", "CDE4301")
-    );
-
-    private static final Map<String, Integer> MODULE_MC_MAP = new HashMap<>();
-
-    public final List<Module> completedModules;
-
-    static {
-        // engineering core
-        MODULE_MC_MAP.put("MA1511", 2);
-        MODULE_MC_MAP.put("MA1512", 2);
-        MODULE_MC_MAP.put("MA1508E", 4);
-        MODULE_MC_MAP.put("EG2401A", 2);
-
-        // internship OR options (10 MCs each)
-        MODULE_MC_MAP.put("CP3880", 10);
-        MODULE_MC_MAP.put("EG3611A", 10);
-
-        // CEG discipline core
-        MODULE_MC_MAP.put("CG1111A", 4);
-        MODULE_MC_MAP.put("CG2111A", 4);
-        MODULE_MC_MAP.put("CS1231", 4);
-        MODULE_MC_MAP.put("CG2023", 4);
-        MODULE_MC_MAP.put("CG2027", 2);
-        MODULE_MC_MAP.put("CG2028", 2);
-        MODULE_MC_MAP.put("CG2271", 4);
-        MODULE_MC_MAP.put("CG3201", 4);
-        MODULE_MC_MAP.put("CG3207", 4);
-        MODULE_MC_MAP.put("CS2040C", 4);
-        MODULE_MC_MAP.put("CS2107", 4);
-        MODULE_MC_MAP.put("CS2113", 4);
-        MODULE_MC_MAP.put("EE2026", 4);
-        MODULE_MC_MAP.put("EE4204", 4);
-
-        // capstone OR options (8 MCs each)
-        MODULE_MC_MAP.put("CG4002", 8);
-        MODULE_MC_MAP.put("CG4001", 8);
-        MODULE_MC_MAP.put("CP4106", 8);
-        MODULE_MC_MAP.put("EE4002D", 8);
-        MODULE_MC_MAP.put("EE4002R", 8);
-        MODULE_MC_MAP.put("CDE4301", 8);
+    public ModuleList() {
+        this.allModules = ModuleLoader.loadModules();
     }
 
-    public ModuleList(List<Module> completedModules) {
-        this.completedModules = completedModules;
+    public Map<String, Module> getAllModules() {
+        return allModules;
+    }
+
+    public Module getModule(String moduleCode) {
+        return allModules.get(moduleCode.toUpperCase());
     }
 
     /**
@@ -83,10 +34,11 @@ public class ModuleList {
      * @param moduleCode Module code to look up.
      * @return MC value, or 4 as default if not found.
      */
-    public static int getMcForModule(String moduleCode) {
+    public int getMcForModule(String moduleCode) {
         assert moduleCode != null : "Module code should not be null";
         assert !moduleCode.trim().isEmpty() : "Module code should not be empty";
-        int mc = MODULE_MC_MAP.getOrDefault(moduleCode.toUpperCase(), 4);
+        Module module = allModules.get(moduleCode.toUpperCase());
+        int mc = (module != null) ? module.getModularCredits() : 4;
         assert mc > 0 : "MC value should be positive";
         logger.log(Level.INFO, "Retrieved MC for {0}: {1}",
                 new Object[]{moduleCode.toUpperCase(), mc});
@@ -101,75 +53,60 @@ public class ModuleList {
      * Checks if the given module code is a recognised required module.
      */
     private boolean isRecognisedModule(String moduleCode) {
-        for (String required : REQUIRED_MODULES) {
-            if (required.equalsIgnoreCase(moduleCode)) {
-                return true;
-            }
-        }
-        for (List<String> orGroup : OR_GROUPS) {
-            for (String option : orGroup) {
-                if (option.equalsIgnoreCase(moduleCode)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return allModules.containsKey(moduleCode.toUpperCase());
     }
 
-    public void addModule(Module newModule) throws DuplicateException {
-        assert newModule != null : "Module to add should not be null";
-        assert newModule.getModuleCode() != null : "Module code should not be null";
-        assert !newModule.getModuleCode().trim().isEmpty() : "Module code should not be empty";
+    public void addModule(String moduleCode) throws DuplicateException {
+        assert moduleCode != null : "Module code should not be null";
+        assert !moduleCode.trim().isEmpty() : "Module code should not be empty";
 
-        logger.log(Level.FINE, "Attempting to add module: {0}", newModule.getModuleCode());
+        String code = moduleCode.toUpperCase();
+        logger.log(Level.FINE, "Attempting to add module: {0}", code);
 
-        if (!isRecognisedModule(newModule.getModuleCode())) {
-            logger.log(Level.FINE, "Unrecognised module: {0}", newModule.getModuleCode());
-            throw new IllegalArgumentException(newModule.getModuleCode()
+        if (!isRecognisedModule(code)) {
+            logger.log(Level.FINE, "Unrecognised module: {0}", code);
+            throw new IllegalArgumentException(code
                     + " is not a recognised module in the required list.");
         }
-        for (Module module : completedModules) {
-            if (module.getModuleCode().equalsIgnoreCase(newModule.getModuleCode())) {
-                logger.log(Level.FINE, "Duplicate module: {0}", newModule.getModuleCode());
-                throw new DuplicateException(newModule.getModuleCode());
-            }
+
+        Module module = allModules.get(code);
+        if (module.isCompleted()) {
+            logger.log(Level.FINE, "Duplicate module: {0}", code);
+            throw new DuplicateException(code);
         }
-        newModule.markCompleted();
-        completedModules.add(newModule);
-        logger.log(Level.FINE, "Module added successfully: {0}", newModule.getModuleCode());
+
+        module.markCompleted();
+        logger.log(Level.FINE, "Module marked as completed: {0}", code);
+    }
+
+    /**
+     * Overload for backward compatibility with existing code that passes Module objects.
+     */
+    public void addModule(Module newModule) throws DuplicateException {
+        addModule(newModule.getModuleCode());
     }
 
     public boolean removeModule(String moduleCode) {
-        for (int i = 0; i < completedModules.size(); i++) {
-            Module module = completedModules.get(i);
-            if (module.getModuleCode().equalsIgnoreCase(moduleCode)) {
-                module.markIncompleted();
-                completedModules.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isInCompletedList(String moduleCode) {
-        for (Module module : completedModules) {
-            if (module.getModuleCode().equalsIgnoreCase(moduleCode)) {
-                return true;
-            }
+        String code = moduleCode.toUpperCase();
+        Module module = allModules.get(code);
+        if (module != null && module.isCompleted()) {
+            module.markIncompleted();
+            return true;
         }
         return false;
     }
 
     /**
-     * Checks if any module in the given OR group has been completed.
+     * Returns a list of completed modules.
      */
-    private boolean isOrGroupFulfilled(List<String> orGroup) {
-        for (String moduleCode : orGroup) {
-            if (isInCompletedList(moduleCode)) {
-                return true;
+    public List<Module> getCompletedModules() {
+        List<Module> completed = new ArrayList<>();
+        for (Module module : allModules.values()) {
+            if (module.isCompleted()) {
+                completed.add(module);
             }
         }
-        return false;
+        return completed;
     }
 
     /**
@@ -179,18 +116,19 @@ public class ModuleList {
      *         indicating that no modules have been completed.
      */
     public String listCompletedModules() {
-        if (completedModules.isEmpty()) {
+        List<Module> completed = getCompletedModules();
+        if (completed.isEmpty()) {
             return "No modules completed yet.";
         }
 
-        StringBuilder completedModulesList = new StringBuilder("Completed modules:\n");
-        for (int i = 0; i < completedModules.size(); i++) {
-            completedModulesList.append(i + 1)
+        StringBuilder sb = new StringBuilder("Completed modules:\n");
+        for (int i = 0; i < completed.size(); i++) {
+            sb.append(i + 1)
                     .append(". ")
-                    .append(completedModules.get(i).getModuleCode())
+                    .append(completed.get(i).getModuleCode())
                     .append("\n");
         }
-        return completedModulesList.toString().trim();
+        return sb.toString().trim();
     }
 
     /**
@@ -200,19 +138,46 @@ public class ModuleList {
      *         that are needed for graduation.
      */
     public String listNeededModules() {
-        StringBuilder neededModulesList = new StringBuilder("Modules required for graduation:\n");
+        StringBuilder sb = new StringBuilder("Modules required for graduation:\n");
         int index = 1;
-        for (String module : REQUIRED_MODULES) {
-            neededModulesList.append(index).append(". ").append(module).append("\n");
-            index++;
+        List<String> listedOrGroups = new ArrayList<>();
+
+        for (Module module : allModules.values()) {
+            String orGroup = module.getOrGroup();
+            if (orGroup != null) {
+                if (!listedOrGroups.contains(orGroup)) {
+                    listedOrGroups.add(orGroup);
+                    List<String> groupMembers = getOrGroupMembers(orGroup);
+                    sb.append(index).append(". ")
+                            .append(String.join(" OR ", groupMembers))
+                            .append("\n");
+                    index++;
+                }
+            } else {
+                sb.append(index).append(". ").append(module.getModuleCode()).append("\n");
+                index++;
+            }
         }
-        for (List<String> orGroup : OR_GROUPS) {
-            neededModulesList.append(index).append(". ")
-                    .append(String.join(" OR ", orGroup))
-                    .append("\n");
-            index++;
+        return sb.toString().trim();
+    }
+
+    private List<String> getOrGroupMembers(String orGroup) {
+        List<String> members = new ArrayList<>();
+        for (Module module : allModules.values()) {
+            if (orGroup.equals(module.getOrGroup())) {
+                members.add(module.getModuleCode());
+            }
         }
-        return neededModulesList.toString().trim();
+        return members;
+    }
+
+    private boolean isOrGroupFulfilled(String orGroup) {
+        for (Module module : allModules.values()) {
+            if (orGroup.equals(module.getOrGroup()) && module.isCompleted()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -220,9 +185,10 @@ public class ModuleList {
      */
     public String countMcs() {
         int completedMcs = 0;
-        for (Module module : completedModules) {
-            assert module != null : "Completed module should not be null";
-            completedMcs += module.getModularCredits();
+        for (Module module : allModules.values()) {
+            if (module.isCompleted()) {
+                completedMcs += module.getModularCredits();
+            }
         }
         assert completedMcs >= 0 : "Completed MCs should not be negative";
         int remainingMcs = TOTAL_GRADUATION_MCS - completedMcs;
@@ -245,25 +211,23 @@ public class ModuleList {
     /**
      * Returns a list of required modules that have not yet been completed.
      *
-     * Modules already marked as completed will not appear in the list.
-     * OR module groups are considered completed if any module in the group
-     * has been completed.
-     *
      * @return A numbered list of incomplete modules or a message indicating
      *         that all required modules have been completed.
      */
     public String listIncompleteModules() {
         List<String> incompleteModules = new ArrayList<>();
+        List<String> listedOrGroups = new ArrayList<>();
 
-        for (String requiredModule : REQUIRED_MODULES) {
-            if (!isInCompletedList(requiredModule)) {
-                incompleteModules.add(requiredModule);
-            }
-        }
-
-        for (List<String> orGroup : OR_GROUPS) {
-            if (!isOrGroupFulfilled(orGroup)) {
-                incompleteModules.add(String.join(" OR ", orGroup));
+        for (Module module : allModules.values()) {
+            String orGroup = module.getOrGroup();
+            if (orGroup != null) {
+                if (!listedOrGroups.contains(orGroup) && !isOrGroupFulfilled(orGroup)) {
+                    listedOrGroups.add(orGroup);
+                    List<String> groupMembers = getOrGroupMembers(orGroup);
+                    incompleteModules.add(String.join(" OR ", groupMembers));
+                }
+            } else if (!module.isCompleted()) {
+                incompleteModules.add(module.getModuleCode());
             }
         }
 
@@ -271,13 +235,47 @@ public class ModuleList {
             return "All required modules have been completed.";
         }
 
-        StringBuilder incompleteModulesList = new StringBuilder("Incomplete modules:\n");
+        StringBuilder sb = new StringBuilder("Incomplete modules:\n");
         for (int i = 0; i < incompleteModules.size(); i++) {
-            incompleteModulesList.append(i + 1)
+            sb.append(i + 1)
                     .append(". ")
                     .append(incompleteModules.get(i))
                     .append("\n");
         }
-        return incompleteModulesList.toString().trim();
+        return sb.toString().trim();
+    }
+
+    /**
+     * Returns the prerequisites for a given module.
+     */
+    public String getPrerequisites(String moduleCode) {
+        Module module = allModules.get(moduleCode.toUpperCase());
+        if (module == null) {
+            return moduleCode.toUpperCase() + " is not a recognised module.";
+        }
+        List<String> prereqs = module.getPrerequisites();
+        if (prereqs == null || prereqs.isEmpty()) {
+            return moduleCode.toUpperCase() + " has no prerequisites.";
+        }
+        return "Prerequisites for " + moduleCode.toUpperCase() + ": "
+                + String.join(", ", prereqs);
+    }
+
+    /**
+     * Returns the modules that are unlocked by completing a given module.
+     */
+    public String getModulesUnlockedBy(String moduleCode) {
+        String code = moduleCode.toUpperCase();
+        List<String> unlocked = new ArrayList<>();
+        for (Module module : allModules.values()) {
+            List<String> prereqs = module.getPrerequisites();
+            if (prereqs != null && prereqs.contains(code)) {
+                unlocked.add(module.getModuleCode());
+            }
+        }
+        if (unlocked.isEmpty()) {
+            return code + " does not unlock any other modules.";
+        }
+        return "Modules unlocked by " + code + ": " + String.join(", ", unlocked);
     }
 }

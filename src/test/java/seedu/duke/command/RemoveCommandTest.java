@@ -3,12 +3,11 @@ package seedu.duke.command;
 import org.junit.jupiter.api.Test;
 import seedu.duke.module.ModuleList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.ArrayList;
 
 public class RemoveCommandTest {
     @Test
     public void execute_existingModule_removedSuccessfully() {
-        ModuleList modules = new ModuleList(new ArrayList<>());
+        ModuleList modules = new ModuleList();
 
         DoneCommand doneCommand = new DoneCommand("CS1231");
         doneCommand.execute(modules);
@@ -17,12 +16,12 @@ public class RemoveCommandTest {
         String result = removeCommand.execute(modules);
 
         assertEquals("CS1231 has been removed", result);
-        assertEquals(0, modules.completedModules.size());
+        assertEquals(0, modules.getCompletedModules().size());
     }
 
     @Test
     public void execute_moduleNotInList_returnsErrorMessage() {
-        ModuleList modules = new ModuleList(new ArrayList<>());
+        ModuleList modules = new ModuleList();
 
         RemoveCommand command = new RemoveCommand("CS1231");
         String result = command.execute(modules);
@@ -32,7 +31,7 @@ public class RemoveCommandTest {
 
     @Test
     public void execute_lowercaseInput_convertedToUppercase() {
-        ModuleList modules = new ModuleList(new ArrayList<>());
+        ModuleList modules = new ModuleList();
         DoneCommand doneCommand = new DoneCommand("CS1231");
         doneCommand.execute(modules);
 

@@ -1,28 +1,37 @@
 package seedu.duke;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
 import seedu.duke.command.Command;
+import seedu.duke.module.Module;
 import seedu.duke.module.ModuleList;
 import seedu.duke.parser.Parser;
 import seedu.duke.ui.UI;
 import seedu.duke.storage.Storage;
+import seedu.duke.exception.DuplicateException;
+
 public class PathLock {
     /**
      * Main entry-point for the PathLock application.
      */
     @SuppressWarnings("checkstyle:RightCurly")
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
-        ModuleList modules;
+        ModuleList modules = new ModuleList();
 
         try {
-            modules = new ModuleList(storage.load());
+            List<Module> savedModules = storage.load();
+            for (Module saved : savedModules) {
+                try {
+                    modules.addModule(saved.getModuleCode());
+                } catch (DuplicateException | IllegalArgumentException e) {
+                    // skip invalid or duplicate entries from save file
+                }
+            }
         } catch (IOException e) {
-            modules = new ModuleList(new ArrayList<>());
+            // no saved data, start fresh
         }
 
         UI.opening();

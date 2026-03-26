@@ -7,6 +7,7 @@ import seedu.duke.command.ListCompletedCommand;
 import seedu.duke.command.ListIncompleteCommand;
 import seedu.duke.command.ListNeededCommand;
 import seedu.duke.command.CountCommand;
+import seedu.duke.command.AddToPlannerCommand;
 import seedu.duke.exception.MissingCommandException;
 
 public class Parser {

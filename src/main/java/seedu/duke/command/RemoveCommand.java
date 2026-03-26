@@ -24,7 +24,7 @@ public class RemoveCommand extends Command {
 
         boolean removed = modules.removeModule(moduleCode);
         try {
-            Storage.save(modules.completedModules);
+            Storage.save(modules.getCompletedModules());
             logger.log(Level.FINE, "Storage updated after removing module: {0}", moduleCode);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to save after removing module: {0}", moduleCode);

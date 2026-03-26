@@ -1,45 +1,87 @@
 package seedu.duke.module;
 
-import seedu.duke.Planner.ModuleStatus;
+import java.util.List;
 
 public class Module {
-    private final String moduleCode;
-    private final int modularCredits;
-    private boolean isCompleted;
-    private ModuleStatus Status;
+    private final String code;
+    private final int mc;
+    private final String type;
+    private final String orGroup;
+    private final List<String> prerequisites;
+    private final List<String> preclusions;
+    private ModuleStatus status;
     private String semester;
 
-    public Module(String moduleCode, int modularCredits) {
-        this.moduleCode = moduleCode;
-        this.modularCredits = modularCredits;
-        this.isCompleted = false;
-        this.Status = ModuleStatus.UNPLANNED;
+    public Module(String code, int mc, String type, String orGroup,
+                  List<String> prerequisites, List<String> preclusions) {
+        this.code = code;
+        this.mc = mc;
+        this.type = type;
+        this.orGroup = orGroup;
+        this.prerequisites = prerequisites;
+        this.preclusions = preclusions;
+        this.status = ModuleStatus.INCOMPLETE;
         this.semester = "";
     }
 
+    public Module(String code, int mc) {
+        this(code, mc, null, null, List.of(), List.of());
+    }
+
     public String getModuleCode() {
-        return moduleCode;
+        return code;
     }
 
     public int getModularCredits() {
-        return modularCredits;
+        return mc;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getOrGroup() {
+        return orGroup;
+    }
+
+    public List<String> getPrerequisites() {
+        return prerequisites;
+    }
+
+    public List<String> getPreclusions() {
+        return preclusions;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public ModuleStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ModuleStatus status) {
+        this.status = status;
     }
 
     public boolean isCompleted() {
-        return isCompleted;
+        return status == ModuleStatus.COMPLETED;
     }
 
     public void markCompleted() {
-        this.isCompleted = true;
+        this.status = ModuleStatus.COMPLETED;
     }
 
     public void markIncompleted() {
-        this.isCompleted = false;
+        this.status = ModuleStatus.INCOMPLETE;
     }
 
     @Override
     public String toString() {
-        return moduleCode;
+        return code;
     }
-
 }

@@ -15,7 +15,7 @@ public class storageTest {
         Storage storage = new Storage("data/test.txt");
 
         // ensure empty file
-        Storage.save(List.of());
+        storage.save(List.of());
 
         List<Module> modules = storage.load();
 

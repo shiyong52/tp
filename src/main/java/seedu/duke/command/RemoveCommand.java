@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RemoveCommand extends Command {
+    Storage storage = new Storage("data/test.txt");
     private final String moduleCode;
     private final Logger logger = Logger.getLogger(RemoveCommand.class.getName());
 
@@ -24,7 +25,7 @@ public class RemoveCommand extends Command {
 
         boolean removed = modules.removeModule(moduleCode);
         try {
-            Storage.save(modules.completedModules);
+            storage.save(modules.completedModules);
             logger.log(Level.FINE, "Storage updated after removing module: {0}", moduleCode);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to save after removing module: {0}", moduleCode);

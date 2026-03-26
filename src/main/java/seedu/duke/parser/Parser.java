@@ -1,12 +1,6 @@
 package seedu.duke.parser;
 
-import seedu.duke.command.Command;
-import seedu.duke.command.DoneCommand;
-import seedu.duke.command.RemoveCommand;
-import seedu.duke.command.ListCompletedCommand;
-import seedu.duke.command.ListIncompleteCommand;
-import seedu.duke.command.ListNeededCommand;
-import seedu.duke.command.CountCommand;
+import seedu.duke.command.*;
 import seedu.duke.exception.MissingCommandException;
 
 public class Parser {

@@ -15,7 +15,7 @@ import seedu.duke.module.Module;
 
 public class Storage {
     private static final Logger logger = Logger.getLogger(Storage.class.getName());
-    private static String filePath;
+    private final String filePath;
 
     public Storage() {
         this("data/duke.txt"); // default
@@ -67,7 +67,7 @@ public class Storage {
         scanner.close();
         return modules;
     }
-    public static void save(List<Module> modules) throws IOException {
+    public void save(List<Module> modules) throws IOException {
 
         FileWriter writer = new FileWriter(filePath);
 

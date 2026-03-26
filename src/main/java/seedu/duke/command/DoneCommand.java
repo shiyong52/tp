@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DoneCommand extends Command {
+    Storage storage = new Storage("data/test.txt");
     private final String moduleCode;
     private final Logger logger = Logger.getLogger(DoneCommand.class.getName());
 
@@ -30,7 +31,7 @@ public class DoneCommand extends Command {
             modules.addModule(newModule);
             logger.log(Level.FINE, "Module added: {0} (MC={1})", new Object[]{moduleCode, modularCredits});
 
-            Storage.save(modules.completedModules);
+            storage.save(modules.completedModules);
             logger.log(Level.FINE, "Storage updated after adding module: {0}", moduleCode);
 
             return moduleCode + " has been added";

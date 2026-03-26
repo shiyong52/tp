@@ -1,0 +1,248 @@
+[
+  {
+    "code": "CDE2501",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": [],
+    "preclusions": ["EG2501"]
+  },
+  {
+    "code": "ES2631",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": [],
+    "preclusions": ["GEK1549", "GET1021", "ES1531", "ES2531"]
+  },
+  {
+    "code": "CS1010",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": [],
+    "preclusions": ["CS1010A", "CS1010E", "CS1010HS", "CS1010J", "CS1010S", "CS1010X", "CS1101S", "UTC2851"]
+  },
+  {
+    "code": "GEA1000",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": [],
+    "preclusions": []
+  },
+  {
+    "code": "DTK1234",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": [],
+    "preclusions": []
+  },
+  {
+    "code": "EG1311",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": [],
+    "preclusions": []
+  },
+  {
+    "code": "EE2211",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": ["CS1010", "MA1511", "MA1508E"],
+    "preclusions": []
+  },
+  {
+    "code": "PF1101A",
+    "mc": 4,
+    "type": "common_curriculum",
+    "prerequisites": [],
+    "preclusions": []
+  },
+  {
+    "code": "MA1511",
+    "mc": 2,
+    "type": "engineering_core",
+    "prerequisites": [],
+    "preclusions": ["MA1312", "MA1505", "MA1521", "MA2002", "MA2311", "PC2134", "PC2174", "PC2174A", "YSC1216"]
+  },
+  {
+    "code": "MA1512",
+    "mc": 2,
+    "type": "engineering_core",
+    "prerequisites": [],
+    "preclusions": ["PC2134"]
+  },
+  {
+    "code": "MA1508E",
+    "mc": 4,
+    "type": "engineering_core",
+    "prerequisites": [],
+    "preclusions": ["MA1311", "MA1513", "MA1522", "MA2001", "YSC2232"]
+  },
+  {
+    "code": "EG2401A",
+    "mc": 2,
+    "type": "engineering_core",
+    "prerequisites": [],
+    "preclusions": []
+  },
+  {
+    "code": "CP3880",
+    "mc": 12,
+    "type": "engineering_core",
+    "orGroup": "internship",
+    "prerequisites": ["ES2631", "CS2113"],
+    "preclusions": ["EG3601"]
+  },
+  {
+    "code": "EG3611A",
+    "mc": 10,
+    "type": "engineering_core",
+    "orGroup": "internship",
+    "prerequisites": [],
+    "preclusions": ["EG3601", "EG3611"]
+  },
+  {
+    "code": "CG1111A",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": [],
+    "preclusions": ["BN2111", "EE1111B", "EE2111A", "ESP2111", "ME2104", "ME2105", "RB2101"]
+  },
+  {
+    "code": "CG2111A",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["CS1010"],
+    "preclusions": ["CG1112"]
+  },
+  {
+    "code": "CS1231",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": [],
+    "preclusions": ["CS1231S", "MA1100", "MA1100T"]
+  },
+  {
+    "code": "CG2023",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["MA1512"],
+    "preclusions": ["EE2023", "EE2023E", "TEE2023"]
+  },
+  {
+    "code": "CG2027",
+    "mc": 2,
+    "type": "ceg_core",
+    "prerequisites": ["CG1111A"],
+    "preclusions": []
+  },
+  {
+    "code": "CG2028",
+    "mc": 2,
+    "type": "ceg_core",
+    "prerequisites": ["CS1010"],
+    "preclusions": ["CS2100", "CS2100DE", "EE2028"]
+  },
+  {
+    "code": "CG2271",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["CS2040C"],
+    "preclusions": ["CS2106", "CS2271"]
+  },
+  {
+    "code": "CG3201",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["EE2211"],
+    "preclusions": ["BT4240", "CS2109S", "CS3244", "CS3264", "DMX1401AI", "DMX1501AI", "EE4312", "EE4802"]
+  },
+  {
+    "code": "CG3207",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["CG2028"],
+    "preclusions": ["EE3207", "EE3207E", "TEE3207"]
+  },
+  {
+    "code": "CS2040C",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["CS1010"],
+    "preclusions": ["CS1020", "CS1020E", "CS2010", "CS2020", "CS2040", "CS2040DE", "CS2040HS", "CS2040S"]
+  },
+  {
+    "code": "CS2107",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["CS1010"],
+    "preclusions": []
+  },
+  {
+    "code": "CS2113",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["CS2040C"],
+    "preclusions": ["CS2103", "CS2103DE", "CS2103T", "CS2113T"]
+  },
+  {
+    "code": "EE2026",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": ["CG1111A", "CS1010"],
+    "preclusions": ["EE2020"]
+  },
+  {
+    "code": "EE4204",
+    "mc": 4,
+    "type": "ceg_core",
+    "prerequisites": [],
+    "preclusions": ["CEG5101", "CS2105", "EE3204", "EE5310", "EE6310", "TEE3204", "TEE4204"]
+  },
+  {
+    "code": "CG4002",
+    "mc": 8,
+    "type": "ceg_core",
+    "orGroup": "capstone",
+    "prerequisites": ["CS2113"],
+    "preclusions": ["CG3002"]
+  },
+  {
+    "code": "CG4001",
+    "mc": 12,
+    "type": "ceg_core",
+    "orGroup": "capstone",
+    "prerequisites": [],
+    "preclusions": ["CG4003", "CP4101", "CP4106", "EE4001", "EE4002D", "EE4002R", "EG4301", "EG4301A"]
+  },
+  {
+    "code": "CP4106",
+    "mc": 8,
+    "type": "ceg_core",
+    "orGroup": "capstone",
+    "prerequisites": [],
+    "preclusions": ["BT4101", "CG4001", "CP4101"]
+  },
+  {
+    "code": "EE4002D",
+    "mc": 8,
+    "type": "ceg_core",
+    "orGroup": "capstone",
+    "prerequisites": [],
+    "preclusions": []
+  },
+  {
+    "code": "EE4002R",
+    "mc": 8,
+    "type": "ceg_core",
+    "orGroup": "capstone",
+    "prerequisites": [],
+    "preclusions": []
+  },
+  {
+    "code": "CDE4301",
+    "mc": 12,
+    "type": "ceg_core",
+    "orGroup": "capstone",
+    "prerequisites": [],
+    "preclusions": ["BN4101", "CDE4301A", "CE4103R", "CE4104", "CG4002", "CN4118", "CN4119", "EE4002D", "EE4002R", "EG4301", "EG4301A", "ESE4501R", "ESE4502R", "ESP4901", "IE3100R", "IPM4101", "ME4101A", "ME4101B", "MLE4101B", "MLE4102A", "PF4101"]
+  }
+]

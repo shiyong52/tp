@@ -12,7 +12,7 @@ public class DoneCommandTest {
 
         String result = command.execute(modules);
 
-        assertEquals("CS1231 has been added", result);
+        assertEquals("CS1231 has been added (4 MCs).", result);
         assertEquals(1, modules.getCompletedModules().size());
     }
 
@@ -23,6 +23,6 @@ public class DoneCommandTest {
         DoneCommand command = new DoneCommand("cs1231", 4);
         String result = command.execute(modules);
 
-        assertEquals("CS1231 has been added", result);
+        assertEquals("CS1231 has been added (4 MCs).", result);
     }
 }

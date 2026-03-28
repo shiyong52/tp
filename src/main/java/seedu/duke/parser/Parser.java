@@ -45,10 +45,7 @@ public class Parser {
         }
 
         if (input.startsWith("y")) {
-            String semester = input.substring(0, 4);
-            String moduleCode = input.substring(5).trim();
-            return new AddToPlannerCommand(moduleCode,semester);
-
+            return parsePlannerAdd(input);
         }
 
         if (input.equals("planner")) {
@@ -109,4 +106,20 @@ public class Parser {
 
         return new DoneCommand(moduleCode, mc);
     }
+
+    private static AddToPlannerCommand parsePlannerAdd(String input) {
+        if (input.length() < 6 || input.charAt(4) != ' ') {
+            throw new MissingCommandException("Please use format: y1s1 MODULE_CODE");
+        }
+
+        String semester = input.substring(0, 4).trim();
+        String moduleCode = input.substring(5).trim();
+
+        if (moduleCode.isEmpty()) {
+            throw new MissingCommandException("Please provide a module code. Example: y1s1 CS1010");
+        }
+
+        return new AddToPlannerCommand(moduleCode, semester);
+    }
+
 }

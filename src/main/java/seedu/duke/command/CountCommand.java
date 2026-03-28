@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.appState.AppState;
 import seedu.duke.module.ModuleList;
 
 import java.util.logging.Level;
@@ -10,7 +11,8 @@ public class CountCommand extends Command {
     private static final Logger logger = Logger.getLogger(CountCommand.class.getName());
 
     @Override
-    public String execute(ModuleList modules) {
+    public String execute(AppState appState) {
+        ModuleList modules = appState.getModule();
         assert modules != null : "ModuleList should not be null";
         logger.log(Level.INFO, "Executing count command");
         String result = modules.countMcs();

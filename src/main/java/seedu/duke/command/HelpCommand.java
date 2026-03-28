@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.appState.AppState;
 import seedu.duke.module.ModuleList;
 
 import java.util.LinkedHashMap;
@@ -20,7 +21,8 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String execute(ModuleList modules) {
+    public String execute(AppState appState) {
+        ModuleList modules = appState.getModule();
         assert modules != null : "ModuleList should not be null";
         if (topic == null || topic.isEmpty()) {
             return showGeneralHelp();

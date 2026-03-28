@@ -15,7 +15,7 @@ public class ModuleList {
 
     private static final int TOTAL_GRADUATION_MCS = 160;
 
-    private final Map<String, Module> allModules;
+    public final Map<String, Module> allModules;
     private final Map<String, Module> externalModules = new LinkedHashMap<>();
 
     public ModuleList() {
@@ -66,7 +66,7 @@ public class ModuleList {
     }
 
     /**
-     * Checks if the given module code is a recognized required module.
+     * Checks if the given module code is a recognised required module.
      */
     public boolean isRecognisedModule(String moduleCode) {
         assert moduleCode != null : "moduleCode cannot be null";

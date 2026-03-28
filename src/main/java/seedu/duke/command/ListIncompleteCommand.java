@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.appState.AppState;
 import seedu.duke.module.ModuleList;
 
 import java.util.logging.Level;
@@ -9,8 +10,9 @@ public class ListIncompleteCommand extends Command {
     private final Logger logger = Logger.getLogger(ListIncompleteCommand.class.getName());
 
     @Override
-    public String execute(ModuleList modules) {
+    public String execute(AppState appState) {
         // Defensive check: modules should never be null when execute is called
+        ModuleList modules = appState.getModule();
         assert modules != null : "ModuleList should not be null";
 
         // Logs that this command has started running

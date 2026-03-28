@@ -24,16 +24,15 @@ public class AddToPlannerCommand extends Command {
         UserProfile profile = appState.getProfile();
 
         Module module = moduleList.getModule(moduleCode);
+
         if (module == null) {
-            return moduleCode + " is not a recognised module.";
+            throw new IllegalArgumentException("\"" + moduleCode + "\" is not a recognised module.");
         }
-
-        if (planner.containsModule(moduleCode)) {
-            String existingSemester = planner.findSemesterOfModule(moduleCode);
-            return moduleCode + " is already planned in " + existingSemester + ".";
+        try {
+            module.setSemester(semester);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-
-        module.setSemester(semester);
         planner.addModule(module);
 
         int currentWorkload = planner.getSemesterWorkload(semester);

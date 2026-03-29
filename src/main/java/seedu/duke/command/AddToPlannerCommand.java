@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.appstate.AppState;
 import seedu.duke.module.ModuleList;
 
 public class AddToPlannerCommand extends Command {
@@ -12,7 +13,7 @@ public class AddToPlannerCommand extends Command {
     }
 
     @Override
-    public String execute(ModuleList modules) {
+    public String execute(AppState appState) {
         return "";
     }
 }

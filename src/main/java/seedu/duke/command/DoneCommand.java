@@ -15,7 +15,7 @@ public class DoneCommand extends Command {
     private final String moduleCode;
     private final Logger logger = Logger.getLogger(DoneCommand.class.getName());
 
-    public DoneCommand(String moduleCode) {
+    public DoneCommand(String moduleCode, Integer mc) {
         this.moduleCode = moduleCode.toUpperCase();
     }
 

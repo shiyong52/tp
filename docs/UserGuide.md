@@ -93,6 +93,7 @@ Examples:
 ```
 
 ---
+
 ### List Commands
 
 #### Listing completed modules : `list completed`
@@ -141,6 +142,63 @@ Modules required for graduation:
 
 ---
 ### Module Management Commands
+
+
+#### Marking a module as completed : `done`
+
+Marks a module as completed and records it towards your graduation progress.
+
+**Format:** `done MODULE_CODE` or `done MODULE_CODE /mc NUMBER`
+
+- For **core CEG modules** (e.g. `done CS2113`), the MC value is retrieved automatically from the database.
+- For **external modules** not in the CEG curriculum (e.g. `done GEC1001 /mc 4`), you must supply the MC count using `/mc`.
+- Module codes are case-insensitive (e.g. `done cs2113` works the same as `done CS2113`).
+
+**Examples:**
+- `done CS2113` — marks CS2113 as completed (MC looked up automatically)
+- `done GEC1001 /mc 4` — marks external module GEC1001 as completed with 4 MCs
+
+**Example output:**
+```
+CS2113 has been added.
+```
+
+**Example error outputs:**
+```
+Module CS2113 has already been completed
+```
+```
+Invalid module code format: "BADCODE".
+```
+```
+"GEC1001" is not a recognised module. If this is an external module,
+provide its MCs using /mc. Example: done GEC1001 /mc 4
+```
+
+---
+#### Removing a completed module : `remove`
+
+Removes a previously recorded module completion, resetting it back to incomplete.
+
+**Format:** `remove MODULE_CODE`
+
+- Works for both internal CEG modules and external modules added via `/mc`.
+- Module codes are case-insensitive.
+
+**Example:**
+- `remove CS2113` — marks CS2113 as incomplete and removes it from your completed list
+
+**Example output:**
+```
+CS2113 has been removed
+```
+
+**Example output (module not in your completed list):**
+```
+CS2113 is not in your module list
+```
+
+---
 
 #### Counting MC progress : `count`
 

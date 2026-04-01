@@ -34,6 +34,8 @@ public class PlannerList {
                 break;
             case 7: output.append("y4s2:");
                 break;
+            default:
+                break;
             }
             output.append("\n");
             ArrayList<Module> currSem = course.get(i);

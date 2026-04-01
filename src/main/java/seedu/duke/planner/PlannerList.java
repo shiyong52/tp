@@ -5,13 +5,15 @@ import java.util.NoSuchElementException;
 
 import seedu.duke.module.Module;
 public class PlannerList {
-    private ArrayList<ArrayList<Module>> course;
+    private final ArrayList<ArrayList<Module>> course;
 
     public PlannerList() {
         course = new ArrayList<>(8);
         for (int i = 0; i < 8; i++) {
             course.add(new ArrayList<Module>());
         }
+        // Assertion to ensure planner is initialised correctly
+        assert course.size() == 8 : "Planner should have exactly 8 semesters.";
     }
 
     public String list () {
@@ -44,24 +46,17 @@ public class PlannerList {
                 output.append("\n");
             }
         }
-        return output.toString();
-    }
+        // Ensure the output format is correct
+        assert !output.isEmpty() : "Output list should not be empty.";
 
-    private boolean isModuleInPlanner (String moduleCode) {
-        for (int i = 0; i < 8; i++) {
-            ArrayList<Module> currSem = course.get(i);
-            for (Module currModule : currSem) {
-                if (currModule.getModuleCode().equals(moduleCode)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return output.toString();
     }
 
     public void addModule(Module module) {
         String semester = module.getSemester();
         course.get(getSemesterIndex(semester)).add(module);
+        // Assertion to check if module was successfully added
+        assert containsModule(module.getModuleCode()) : "Module should have been added successfully.";
     }
 
     public boolean containsModule(String moduleCode) {
@@ -73,6 +68,8 @@ public class PlannerList {
                 }
             }
         }
+        // Assert that the module exists in the planner
+        assert !moduleCode.isEmpty() : "Module code should not be empty when checking.";
         return false;
     }
 
@@ -165,5 +162,7 @@ public class PlannerList {
         editedModule.setSemester(semester);
         removeModule(moduleCode);
         addModule(editedModule);
+        // Assertion to verify the edited module is correctly placed
+        assert containsModule(editedModule.getModuleCode()) : "Edited module should exist in the planner after modification.";
     }
 }

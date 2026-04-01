@@ -6,6 +6,7 @@ import seedu.duke.module.ModuleList;
 import seedu.duke.module.Module;
 import seedu.duke.planner.PlannerList;
 import seedu.duke.profile.UserProfile;
+import seedu.duke.storage.PlannerStorage;
 
 public class AddToPlannerCommand extends Command {
     private static final int MINIMUM_WORKLOAD = 18;
@@ -35,6 +36,11 @@ public class AddToPlannerCommand extends Command {
             return e.getMessage();
         }
         planner.addModule(module);
+        try {
+            appState.getPlannerStorage().save(planner);
+        } catch (Exception e) {
+            return "Error saving planner: " + e.getMessage();
+        }
 
         int currentWorkload = planner.getSemesterWorkload(semester);
         int recommendedMax = profile.getRecommendedMaxWorkload();

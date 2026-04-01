@@ -10,29 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModuleValidatorTest {
 
-    /*
-     *  isValidModuleCode(String code)
-     *
-     *  Specification (black-box view):
-     *  Returns true  if code matches: [A-Z]{2,3} + [0-9]{4} + [A-Z]?
-     *  Returns false for anything else (null, blank, wrong format).
-     *
-     *  Equivalence Partitions:
-     *  VALID   [V1] 2-letter prefix + 4 digits            e.g. CS2113
-     *  VALID   [V2] 3-letter prefix + 4 digits            e.g. CDE2501
-     *  VALID   [V3] 2/3-letter prefix + 4 digits + letter e.g. CS2040C
-     *  INVALID [I1] null input
-     *  INVALID [I2] blank / whitespace-only
-     *  INVALID [I3] empty string                (boundary: length 0)
-     *  INVALID [I4] 1-letter prefix             (boundary below [V1])
-     *  INVALID [I5] 4-letter prefix             (boundary above [V2])
-     *  INVALID [I6] only 3 digits               (boundary below 4-digit rule)
-     *  INVALID [I7] 5 digits                    (boundary above 4-digit rule)
-     *  INVALID [I8] lowercase letters
-     *  INVALID [I9] 2 trailing letters          (boundary above optional-letter rule)
-     *  INVALID [I10] digit embedded in prefix
-     */
-
     @Test
     public void isValidModuleCode_twoLetterPrefix_returnsTrue() {
         assertTrue(ModuleValidator.isValidModuleCode("CS2113"));
@@ -97,7 +74,6 @@ public class ModuleValidatorTest {
     public void isValidModuleCode_digitInPrefix_returnsFalse() {
         assertFalse(ModuleValidator.isValidModuleCode("C1S2113"));
     }
-
 
     @Test
     public void validateModuleCode_validCode_doesNotThrow() {

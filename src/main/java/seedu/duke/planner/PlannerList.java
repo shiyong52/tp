@@ -149,4 +149,14 @@ public class PlannerList {
         removeModule(moduleCode);
         addModule(editedModule);
     }
+
+    public ArrayList<Module> getAllModules() {
+        ArrayList<Module> allModules = new ArrayList<>();
+
+        for (ArrayList<Module> semesterModules : course) {
+            allModules.addAll(semesterModules);
+        }
+
+        return allModules;
+    }
 }

@@ -85,7 +85,7 @@ public class ModuleValidator {
         if (expectedMc == null) {
             return;
         }
-        if (suppliedMc != expectedMc) {
+        if (!suppliedMc.equals(expectedMc)) {
             logger.log(Level.WARNING,
                     "MC mismatch for {0}: expected {1}, got {2}",
                     new Object[]{moduleCode, expectedMc, suppliedMc});

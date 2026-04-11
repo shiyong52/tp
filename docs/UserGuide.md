@@ -495,6 +495,7 @@ CS2113 is not found in planner
 
 ---
 ## Command Summary
+
 | Action | Format                         | Example                   |
 |---|--------------------------------|---------------------------|
 | View all commands | `help`                         | `help`                    |

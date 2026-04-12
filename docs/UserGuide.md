@@ -135,6 +135,32 @@ Welcome back, russell!
 Saved GPA: 4.50
 Recommended maximum semester workload: 32 MCs
 ```
+---
+
+### Plan selection
+
+```
+After inputting your name and GPA the program will check your profile 
+If the program detects that this is a new User with no plan yet it will create a defult blank plan named 'plan1'
+
+If User already has one or more plans stored program will list all available plan can prompt user to select which plan
+
+to select the plan enter the plan index instead of the name
+
+```
+Example:
+```
+Enter your name: r
+Welcome back, r!
+Saved GPA: 4.00
+Recommended maximum semester workload: 28 MCs
+=======================================================================
+Available plans:
+1. plan1
+2. plan2
+Select a plan by number: 1
+Loaded plan: plan1
+```
 
 ---
 #### Switching to another user profile : `switch`
@@ -474,6 +500,48 @@ CS2113 is not found in planner
 =======================================================================
 ```
 
+#### list all created plans : `planner list plans`
+
+Allows user to see all the plans that the user has created
+the output will show all plans and the plan with the label "active" is the plan that the user is currently on
+
+**Format** `planner list plans`
+
+**Example output:**
+```
+Pathlock awaits: planner list plans
+=======================================================================
+Planner variations:
+  1. plan1 (active)
+  2. plan2
+=======================================================================
+```
+
+#### Switching between plans in planner : `planner switch`
+
+Allows the user to switch which plan they which to edit and change
+
+If the user switch to a plan that is non-existing it will create a new plan with that plan name
+
+**Format** `planner switch PLAN_NAME`
+```
+planner switch plan2
+```
+
+**Example output (`planner switch plan2`):**
+```
+Pathlock awaits: planner switch plan2
+=======================================================================
+Switched to planner: plan2
+=======================================================================
+Pathlock awaits: planner list plans
+=======================================================================
+Planner variations:
+1. plan1
+2. plan2 (active)
+
+=======================================================================
+```
 ---
 ## FAQ
 

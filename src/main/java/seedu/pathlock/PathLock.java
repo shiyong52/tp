@@ -184,7 +184,6 @@ public class PathLock {
         var plans = plannerStorage.listPlannerNames();
 
         if (plans.isEmpty()) {
-            System.out.println("No existing plans found. Creating default plan1.");
             plannerStorage.setPlannerName("plan1");
 
             try {

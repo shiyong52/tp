@@ -84,8 +84,9 @@
 ## 2. Design
 
 ### Architecture
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+PathLock is designed using a layered architecture to ensure a clear separation of concerns and maintainability. The application is divided into four main layers: the UI Layer, Logic Layer, Model Layer, and Storage Layer, all coordinated through a central State Hub.
 
+![Architecture Diagram](./Diagrams/ArchitectureDiagram.jpg)
 ---
 ### Command Component
 **API:** `Command.java`
@@ -336,7 +337,7 @@ if (remaining.contains("/mc")) {
 
 **Execution**
 
-1. `ModuleValidator.validateModuleCode()` rejects codes that do not match the NUS format (2–3 letters + 4 digits + optional letter).
+1. `ModuleValidator.validateModuleCode()` rejects codes that do not match the NUS format (2–4 letters + 4 digits + optional letter).
 2. `isRecognisedModule()` determines whether to take the internal or external path.
 3. Both paths call `Storage.save(modules.getCompletedModules())` as the final step to persist the change.
 
@@ -617,6 +618,10 @@ Maps the user's GPA to a recommended MC maximum workload per semester:
 | 3.0 – 3.99    | 26 MCs                   |
 | Below 3.0     | 24 MCs                   |
 
+> **Note:** For students in their first semester of study, acknowledging that their GPA is 0.00, the system also allows for their input, which will automatically assign their workload to a maximum default of 20 MCs.
+
+The module is always added. The warnings inform rather than block, keeping the user in full control of their planner.
+
 #### Sequence Diagram
 
 ![Sequence Diagram: UserProfile and ProfileStorage](Diagrams/SequenceDiagram_UserProfileProfileStorage.png)
@@ -633,7 +638,7 @@ Maps the user's GPA to a recommended MC maximum workload per semester:
 
 The diagram below shows the key classes involved in the `prereq`, `postreq`, and `count` commands and their relationships.
 
-![Class diagram of prereq, postreq and count commands](https://img.plantuml.biz/plantuml/png/lLRFRzCm5BvFsl_mr5CRw0JNQAesiXqcjJ1fSEFYEe_MccC7sv60qlyTssaIkquhc2PwgHD_x_lUxnRWHXkYJ5Fnomi0_Sn4JHIfW7AYzQqnYgqRWmzKYYVs2-4T_EUFyshBIWJA5ENOFwvasN1yCiGq6YeqMrdgomjtRPZX25bMk0ZWZf6DZIU7Mg72xs-Xbjhu0n4bKDa80uMiAlVaBL1dMKlaKm2J7LbR2qBD_giu82T0T6-rSrZtUGC35F07KfkuAQbhvoJcS7iupN9uicaL6sUt3wKUlOi9xnnsjaQ6qJrmkTcWoc7flmT0vRDHo193yjQfY7MQ8cS3z4LEj_byTQyZsjTtkt2L_tUdNvWZeZIgg5CwcTfTTL7QuMjC7s3UjLZ2roc6Z1iqxKnChM5xMZ9j4jlXwiYwxPE6QMPGZoKyBLAlgRy8BkapbXz-_fsb7xmLrTFJIMkPmzhGaKwnNKHpOC8CB-em45j06-frQxGOSTqvEZqJ6r65mf8PxsgWCvApsIanfcqbQuu6ImTQIycHY2JYoGv5Kw6odI65tJRXZlCh9rfwVM8UFXQVLe_B-y_ttPlk-QwNS8Ukswz_p-VnLaXle-bBhiFXQRaF7NvrjJZQOZbGXRPLzJ4gNXkdOD6O1Y0FYuGSkf-B72omrF1DoMeS6eo1fIMSwv5w7dHYLyyBfTXnfNHkPbsLWeZFQYN84QLXpbhsdcm-Ny3a_IIssKhU_Oe6xnqiy_Yimpj-AGnX8e8ViHuQrV8INzSR5AN_e_47)
+![Class diagram of prereq, postreq and count commands](https://www.plantuml.com/plantuml/png/hLLTR-eu47tdLunuMTXxgUvzsOUeMvNIQhSI7sYXRvKgrnd0gcEdzaJgBjl_VcqJOqYGIgNoajXpVCwPoNW0kBR435M5x02G88amainQk1LiRLYHGMdGuEjtABMbyC9K3bnNYc2aYyAlmWcqdGx0HkG84vrN4XV4gB9G86rqRcEC2yCbkfLz4QfaJWAuFpuaCkAv8hpdMYt4VmW_F5-8GNVBdfqwu_J-g6hLBZ2xTx3jGFXz0tn3xbXwh2oz0SnWMB_rCrWu3RLssFV4FMV6eaaCM-l0Whz3wGErGCzvhIWIzBCetA0AfMfw6kmPfLwlqMGm3iyOBdord52EaJzQEUBhjN7z2FnqqYF__JvfzFCgSstfQmiI2R--8Z4SNKORMTtDOs4fag-HTfkzVYES20_spqqyXPUpvN3yzDS_mzk7uV9-DdsQZ1OP24Nm9_pyuqVqmQJSgLXdWvMNkxo-rz9NaHRV28rYvs1zQhkkguGLXFPKZUDBgnpsGKdDNp2_-VUSSs68JBZjfSY92gRgyNP730eUwXANvQ7t37prwqptrR1XB6L7GwgLYVUTR3N3p8mCveA2ywJUBbx_f8LlmheEBYKIvXxohBL4fcBogAe2kbl_GCD8QEM6tg7RCFaED_Obkf-EPfFv-6vvLs_4vMszde-7q-b-zJ1Dwo0TR-hb_uF1yJHh1jC0QSKQrzxnnXbxSN7Lc94PS8ECq1w30li7cAZIGdMW8UBGwNfdu62vXPNHHGUYqiV0AFSHzBHy6WRUA9FIFgfsjxJzd3wPBauqTfPQ-vBsdTkKnc3GEBhHqlzn7svsVtO3hljxjzxs4beH4of18M2EUzJHiV1nb7PQ4bS4UdL0dMKnhKvePVBDZnPkPik_8Ksw4FI9DgOQa0uXqiGay7Y_O3Ao5-5IvK5uRy28zQRbu5IH0kk2CsMz2oXgEQ5EcU8Rv2yMaF4DQ8M_xI97Kmcah-DA6w0DXl1hXKPW3dw-DRrUkqLLo5y0)
 
 ### `prereq` Command Implementation
 
@@ -657,21 +662,7 @@ Key design decisions:
 
 **Parsing**
 
-`Parser.parseCommand()` checks for the `prereq ` prefix. If the input is bare `prereq` with no module code, a `MissingCommandException` is thrown. Otherwise, the module code is extracted and passed to the `PrereqCommand` constructor.
-
-```java
-String prereqPrefix = "prereq ";
-if (input.equals("prereq")) {
-    throw new MissingCommandException("Please input module code after 'prereq '");
-}
-if (input.startsWith(prereqPrefix)) {
-    String moduleCode = input.substring(prereqPrefix.length()).trim();
-    if (moduleCode.isEmpty()) {
-        throw new MissingCommandException("Please input module code after 'prereq '");
-    }
-    return new PrereqCommand(moduleCode);
-}
-```
+`Parser.parseCommand()` checks for the `prereq ` prefix. If the input is bare `prereq` with no module code, a `MissingCommandException` is thrown. Otherwise, the module code is extracted from the input (everything after the prefix, trimmed) and passed to the `PrereqCommand` constructor.
 
 **Execution**
 
@@ -683,7 +674,7 @@ if (input.startsWith(prereqPrefix)) {
 
 The diagram below shows the execution path for `prereq CS2113`:
 
-![Sequence Diagram for prereq Command](https://img.plantuml.biz/plantuml/png/ZLJ1QkCm4BqN-W-3JsaWfTtsP4feS8ys148_GDYphgWjkz9usSzVZKPA7Bk5pSN8yzwRzqOJ0xmwKfQclhkz0N2VsepAgXuSVareQgpGETNYeTEjWHeDeMKWQUeGjjjJXC6RLgtdvJ1QjFW5nT3toZJRBQDLJOE5ToTStu1qhKTb2BBygEYZ7EhF39I3Oxa279NrFAb-mmxTOZC15MlKOHnFf0W3u71Q0wgXcJeijQC0gTOs8aJAjpTSvpomstlJa4EMSfz-FJu-PLptxxdgYoDdY2Ot2-HT793-umrAH83QOZWLSZm6eS8hlRn8QR_VP7E1kKGY5R1ZMYx71jS80R3zkc_utHma8MC8xer_iPu8DofES-4yY7BJlH-nXxT8ChFDDL3cxo6x9Dm7c5iOODn5iYf5KYvyqauJkkiPd9boVLLvvgck4olktalCMO7NKRG0PY3uFKocaG69IB8PQQ1Tm2cmM0-jqGwRoByFzuwTmoIu4lEElWjobp2N46TMS11ooERmcgRYR5vnAuE8JsI628yjKksdL1_AhJYIXtyX4qF-J_Cgd1-2ZTkUy_FX-Q6u2CjumcEn07oDQG7IdbfqKqVBLItIfdfO-5VogBGXDyE_-XR-A_SF)
+![Sequence Diagram for prereq Command](https://www.plantuml.com/plantuml/png/dLJDYjim4BxdAGQVl0UNtROdivWjs-CM2c4VGCZJHDIs76bK-lYLvOc5P2NGpI5XukzdvjF802-MX24t3WS0KZGW7F7YS988tvKu6J6sC1iqU85NFOvYwZrGID86tYqQNyoUhwIQnKHGjJy5dT-q_5s1i70j2YZZoOmnHPtWoPO1cFopmt-RvoC9mW2z5ZlK3zsx0T-KfO2BvGraHE7X065YQBfjBcYXkePp_FpqzALQmr5_lFc6yip826opwBIBeqKUgCw47b8bpaWQ37KM1IisNVh4Mpm_hvIkgwkYSgwKy9kcYzuzCkksVngD7Fk4nh0yZhnb_8lI4TQ23_5El_k6k-tilT89QJsxEj68sn71JQ6HCN0jpv2HYzvndrRt5U2KLOIsV02HiYYAWTWM9atmIxibt_29m6ApB0xA1gO0WrAV9cMnPyLFotBYO97h6-fnZj8C3upF-azKeCcZM5TxAHZOOr4Wp3zfnhCdF_gF3Cx2xbJ2z02SW4Tys2G9n8Te-Cgso-_ZryVNpScdktxp2XMFFDNFhf11wmQwS_dIo-J9x_ngCMeYM-R7b_ABRywDmpy0)
 
 #### Why This Design?
 
@@ -722,7 +713,7 @@ Identical pattern to `prereq` — checks for the `postreq ` prefix and throws `M
 
 The diagram below shows the execution path for `postreq CS1010`:
 
-![Sequence Diagram for postreq Command](https://img.plantuml.biz/plantuml/png/pLLDZvim4Br7odyOSMAZ9ifMFQ5Lj2azWeGKxGzmOHgi69l5GzNy-_gBn25jrLEqlY0pRzwyUJE8LqrieB4Jy57ESW6WJrpsR60TQ7mVKTPOejRiY7l1Zn9gb8J3mrKH9u6mMXs29lZ6sT68pA1NcWPyXrnr7PFDQlL0LQmcDS2RVh0X_pXMbPaUyPhtJ18aMSMeBLHzIe1fg8gFeQfYWp7DI_g3P3_IC56FokzX-xu_42DqWFtX7b2gPXHOS4qEKXP_W_ZmSc7ZRfhhdRKgW-IoNOVdxVCsiG0Ji64JxMqNGMKwXpw51U4_ZKJV9K0zeBlb_bevfjnGlRpuq6wN9Z51J34bvR2sQPc_DdYFy03RGDqrzbqCycs6Bcnj_8NrI9YouETCkIErHNV6P0C_8ddNqbkWdu21h2VYpi7qJ835NIdB8gRKRrAONSNcw_dMXqks7Q9z8PJgmP2seGfm2Ko8ybhIdj9rMVeIrO1cFYFNd52dJnFcIdt9SYquPRtBiIiq1QDEobaPPtYBzGduZoWJQYM9SQaXYTO8PUCxOO90giai68C3CVTaQCY7HXcWL1J0mEGP5BLcSGFBnfSG6g4rg_rVtEKC1D_FOPSpy_oy_RBDFy5cixbL7zjHN0SxxT-0UXGqNy5ysa03Sz-RDPfBqX7-rPGm_yRbuZS0)
+![Sequence Diagram for postreq Command](https://www.plantuml.com/plantuml/png/dLHBRjim4Dtp50EjNA0sdA8hBuAqwJ810XW-04jD8w8KgP2ZeZvJZz1TJjQHJB4KGs-oicczptipeky2IKzZRmHfCWX7V1dHAeHlMZvxsHzWS84yli2zwtjfMo4LEG-dW5uCJDLA3z8ID8SdITs3KpyRa06MmnkCPs94-8h6nInwpRZrJmN-op0SIHBEoELGO1vTEnfyq85crFzZ5PTXX9XQmlOsjO43D6aUnvlzpRwPvg5_iMi22P7WJBtKPE8mVOajDgNAXoGJ2K9vv5FPFggnxle1wx_-kL1U_swQGhMYisPlKr3HOiaflTVpK7sRSw9A6a4rAlv6DH9kP5pOzPnlWjwcBRFECz9bKvjC8Rq52RYjPUXdOiYo9sR5DNjhSjzmiePBOllrN1bwHXB2E3S0UtNH6RG5QKpK4G2GmPDZRFdaaUECEcZ2m6KdTE6IAS2s33pC_EammrgianEZvAiEUPNwHoO4obcIsWPOYjTIrItJ4vnMB0s1TSj2O8mZBJBLjnYzeNNCj8uY6wGzWwCE_IAxQmIQWD39y4wdnu85ty_nzXxuyzF-y_x-8-nsR3IrglUjtxjqbpo6qT3rAvXVAsQUuX-BrvP2ZHp1ueuJZRtv1m00)
 
 #### Why This Design?
 
@@ -747,11 +738,7 @@ PathLock (Main) → Parser → CountCommand → AppState → ModuleList
 
 **Parsing**
 
-```java
-if (input.equals("count")) {
-    return new CountCommand();
-}
-```
+`Parser.parseCommand()` performs an exact match on the string `"count"` and returns a new `CountCommand` with no arguments.
 
 **Execution**
 
@@ -761,7 +748,7 @@ if (input.equals("count")) {
 
 The diagram below shows the execution path for `count`:
 
-![Sequence Diagram for count Command](https://img.plantuml.biz/plantuml/png/pPJFQiCm3CRlXRw3oAaBz0L22ItPCG53sGCOHsIcYPFQojZZpxBT_KdN7Rlw5Ci_Ivy_YUmTIKlpqCEZhFKAm9sqcQIL0pWypsWKDkYSxF3Gwyw0GaDexwo9DFK8UNvCYk1PoyvBB42Dio6enc6GfitpkwgIYaOBB-wkTlovM9Nl7Mcb9-bzoGeXwRKUrIa3wK3KZw5AIEjDYvB-HT5lJbKyIMcGWhIgkeOEqtGaIHY0m_4QQCPsxh7MZWBIrEiLGs58jYLte80i36t6SR_dg0zEx4aglqd4Kveo_UPBWk2TiiZVKPlWorNbR-zsyQ0iDpylHT0pMwvJyAR5nQc8XonD3Uq24V41KMYeXU-ePiADJ5xSAbXwWppU8KLJ5igYUnxPNX8F0NCB0SnzfMo2IdQdKMwHaSq69ZupMdHpJuk4bvvSJAblWScTc2zqqBV9QaFk6xz7q_fV-7hr0G00)
+![Sequence Diagram for count Command](https://www.plantuml.com/plantuml/png/TP91RiCW44Ntd6BaLRh81LX4gT9b8bMASW24HocgiLqOgjwfH-Wk9wl1X8nDkpFsU_xpWRqdvIZOJf2X3k6C7m5xZV1YrDKfAq4FeISu3DQglXLAq-3Wuj69SHADDgEQFZVoLT7RST3l3IWFzqN5k4dCXAl_SOXHEIbH_CMAVHx7Cod2nDqNA-OqjA73e_6KgCTIYDW0jhioAKXeKjCcLZIVYl3HGXGg6Iww4iRua8VRPFc9swcXTZYjbatIfnJFNuE4s_UCttus-K-Lkp2sPHxHOitph6LNRLjkp13lMOs6NwW3uKRbhVvlljM0kt8s8E6AD9y1RrVEhe3REjqcpREPYrSbidE6V7rFshD81WZ6_X7hq8UEM2fJrxbyWokpsgM2Hk-IBvGpFNccLXTnZtqRRFSB)
 
 #### Why This Design?
 
@@ -822,7 +809,7 @@ It then loops through the 2D array `course` stored in PlannerList and prints the
 #### Sequence Diagram
 
 The diagram below shows the sequence of action upon the user inputting `planner list`
-![sequence diagram of planner list](./Diagrams/plannerlist.png)
+![sequence diagram of planner list](./Diagrams/seq_diag_plannerlist.png)
 
 ---
 ### `planner add` Command Implementation
@@ -981,8 +968,10 @@ database or internet connection.
 * **OR Group** — A set of modules where completing any one satisfies a graduation requirement (e.g. the capstone group: CG4001 or CG4002).
 * **Planner** — The 8-semester planning view (Y1S1 to Y4S2) where students can assign modules to future semesters.
 * **Workload** — The total MCs assigned to a single semester in the planner. PathLock warns if a semester's workload exceeds the GPA-based recommended maximum or falls below the 18 MC minimum.
-* **External Module** — A module not in PathLock's built-in CEG module list (e.g. exchange or cross-faculty modules), added manually with a user-specified MC value.
 * **User Profile** — A saved record containing the user's name and GPA, used to personalise workload recommendations.
+* **Internal Module** — A module that is in PathLock's built-in CEG module list.
+* **External Module** — A module not in PathLock's built-in CEG module list (e.g. cross-faculty modules), added manually with a user-specified MC value.
+
 ---
 
 ## 12. Instructions for manual testing

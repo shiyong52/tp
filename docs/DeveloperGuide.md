@@ -209,7 +209,7 @@ Stores user profile information.
 
 **File Location**
 ```
-data/users/<username>/profile.txt
+data/users/<username>/profile.txt 
 ```
 **Data Format**
 ```

@@ -54,3 +54,5 @@ Given below are my contributions to the project.
 
 - **Community**:
   - Reviewed groupmates UML and sequence diagrams
+  - Reviewed groupmates PR request
+  - Closed issues posted by testers

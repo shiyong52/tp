@@ -226,7 +226,7 @@ Removes a previously recorded module completion, resetting it back to incomplete
 - `remove CS2113` — marks CS2113 as incomplete and removes it from your completed list
 
 **Example output:**
-```
+``
 CS2113 has been removed
 ```
 

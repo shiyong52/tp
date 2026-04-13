@@ -803,9 +803,9 @@ It then loops through the 2D array `course` stored in PlannerList and prints the
 
 #### Sequence Diagram
 
+
 The diagram below shows the sequence of action upon the user inputting `planner list`
 ![sequence diagram of planner list](./Diagrams/seq_diag_plannerlist.png)
-
 ---
 ### `planner add` Command Implementation
 
@@ -838,7 +838,7 @@ Key design decisions:
 #### Sequence Diagram
 
 The diagram below shows the sequence of action upon the user inputting `planner add cs2113 y2s2`
-![sequence diagram of planner add](./Diagrams/plannerAdd.png)
+![sequence diagram of planner add](./Diagrams/seq_diag_planneradd.png)
 
 ---
 ### `planner remove` Command Implementation
@@ -849,7 +849,6 @@ The `planner remove` command allows the User to remove the modules that are in t
 ```
 PathLock (Main) → Parser → RemoveFromPlannerCommand → AppState → PlannerList
 ```
-
 Key design decisions:
 - `planner remove` does not care if moduleCode exists or not as for it to be added to planner it should exist based on `planner add` implementation
 
@@ -867,7 +866,7 @@ Key design decisions:
 #### Sequence Diagram
 
 The diagram below shows the sequence of action upon the user inputting `planner remove cs2113`
-![sequence diagram of planner remove](./Diagrams/plannerRemove.png)
+![sequence diagram of planner remove](./Diagrams/seq_diag_plannerremove.png)
 
 ---
 ### `planner edit` Command Implementation
@@ -897,7 +896,7 @@ Key design decisions:
 #### Sequence Diagram
 
 The diagram below shows the sequence of action upon the user inputting `planner edit cs2113 y2s2`
-![sequence diagram of planner edit](./Diagrams/editplanner.png)
+![sequence diagram of planner edit](./Diagrams/seq_diag_planneredit.png)
 
 ---
 ## 8. Product scope

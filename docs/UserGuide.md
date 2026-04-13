@@ -297,7 +297,7 @@ Removes a previously recorded module completion, resetting it back to incomplete
 - `remove CS2113` — marks CS2113 as incomplete and removes it from your completed list
 
 **Example output:**
-```
+``
 CS2113 has been removed
 ```
 
@@ -572,6 +572,8 @@ Planner variations:
 
 2. **No co-scheduling constraint checks** — The planner does not enforce module scheduling restrictions (e.g. full-time internship modules like EG3611A that cannot be taken with daytime modules). Users should verify scheduling compatibility via official NUS resources (e.g. NUSMods, EduRec) before finalising their plan.
 
+3. **MC workload constraints** – Not all modular credit (MC) constraints are currently enforced by the system. For example, certain semesters (e.g. Y4S2) do not have defined upper or lower workload limits according to NUS guidelines, and special semesters such as internship terms may not reflect their typical MC caps (e.g. 18 MCs). Users are advised to cross check workload requirements using official NUS resources. This may be enhanced in future versions.
+
 ---
 ## Command Summary
 
@@ -581,7 +583,7 @@ Planner variations:
 | Switch user profile | `switch USERNAME` | `switch alice` |
 | View command details | `help COMMAND`                 | `help done`               |
 | Mark module as done | `done MODULE_CODE`             | `done CS2113`             |
-| Add external module | `done MODULE_CODE /mc NUMBER`  | `done SEP101 /mc 4`       |
+| Add external module | `done MODULE_CODE /mc NUMBER`  | `done GEC1001 /mc 4`       |
 | Remove a module | `remove MODULE_CODE`           | `remove CS2113`           |
 | List completed modules | `list completed`               | `list completed`          |
 | List incomplete modules | `list incomplete`              | `list incomplete`         |

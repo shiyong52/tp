@@ -109,6 +109,8 @@ If the name is not found in storage, the program creates a new profile with that
 
 If the name is found in storage, the program loads all saved data under that profile.
 
+warning do not input "|" this character as it will mess up formatting in storage for any names
+
 Example output (new profile):
 ```
 Enter your name: russell

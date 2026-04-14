@@ -1014,11 +1014,9 @@ Key design decisions:
 The diagram below shows the sequence of action upon the user inputting `planner list plans`
 
 ![](Diagrams/SequenceDiagramPlannerListPlans.png)
+
 ---
-## 8. Product Scope
-### Target user profile
-- Y1-Y4 Computer Engineering Undergraduate Students (JC path)
-- Did not follow the recommended TimeTable
+
 ## 8. Product Scope
 ### Target user profile
 - Y1-Y4 Computer Engineering Undergraduate Students (JC path)

@@ -82,6 +82,9 @@ public class Parser {
                 }
                 String param = subInput.substring(4);
                 int seperator = param.indexOf(" ");
+                if (seperator == -1) {
+                    throw new MissingCommandException("Please input module code and semester after 'add '");
+                }
                 String moduleCode = param.substring(0, seperator).trim();
                 String semester = param.substring(seperator).trim();
                 return new AddToPlannerCommand(moduleCode, semester);
@@ -92,6 +95,9 @@ public class Parser {
                 }
                 String param = subInput.substring(5);
                 int seperator = param.indexOf(" ");
+                if (seperator == -1) {
+                    throw new MissingCommandException("Please input module code and semester after 'edit '");
+                }
                 String moduleCode = param.substring(0, seperator).trim();
                 String semester = param.substring(seperator).trim();
                 return new EditPlannerCommand(moduleCode, semester);
